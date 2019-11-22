@@ -1,0 +1,139 @@
+%matplotlib notebook
+from keras.datasets import mnist
+(X_train , Y_train ), (X_test, Y_test) = mnist.load_data()
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats
+import numpy.linalg as LA
+
+#データの作成
+data = np.zeros((784, 60000))
+for i in range(60000):
+    data[:,i] = X_train[i].reshape(1, 28 * 28)
+
+#データの標準化
+new_data = scipy.stats.zscore(data)
+
+#相関行列の作成
+mat = np.corrcoef(new_data)
+
+#固有値、固有ベクトルを求める
+w, v = LA.eig(mat)
+
+v1 = v[:,0]
+v2 = v[:,1]
+v3 = v[:,2]
+
+new_x0 = []
+new_y0 = []
+new_z0 = []
+new_x1 = []
+new_y1 = []
+new_z1 = []
+new_x2 = []
+new_y2 = []
+new_z2 = []
+new_x3 = []
+new_y3 = []
+new_z3 = []
+new_x4 = []
+new_y4 = []
+new_z4 = []
+new_x5 = []
+new_y5 = []
+new_z5 = []
+new_x6 = []
+new_y6 = []
+new_z6 = []
+new_x7 = []
+new_y7 = []
+new_z7 = []
+new_x8 = []
+new_y8 = []
+new_z8 = []
+new_x9 = []
+new_y9 = []
+new_z9 = []
+
+for i in range(60000):
+    x = np.dot(new_data[:,i], v1)
+    y = np.dot(new_data[:,i], v2)
+    z = np.dot(new_data[:,i], v3)
+    t = Y_train[i]
+    if t == 0:
+      new_x0.append(x.real)
+      new_y0.append(y.real)
+      new_z0.append(z.real)
+    if t == 1:
+      new_x1.append(x.real)
+      new_y1.append(y.real)
+      new_z1.append(z.real)
+    if t == 2:
+      new_x2.append(x.real)
+      new_y2.append(y.real)
+      new_z2.append(z.real)
+    if t == 3:
+      new_x3.append(x.real)
+      new_y3.append(y.real)
+      new_z3.append(z.real)
+    if t == 4:
+      new_x4.append(x.real)
+      new_y4.append(y.real)
+      new_z4.append(z.real)
+    if t == 5:
+      new_x5.append(x.real)
+      new_y5.append(y.real)
+      new_z5.append(z.real)
+    if t == 6:
+      new_x6.append(x.real)
+      new_y6.append(y.real)
+      new_z6.append(z.real)
+    if t == 7:
+      new_x7.append(x.real)
+      new_y7.append(y.real)
+      new_z7.append(z.real)
+    if t == 8:
+      new_x8.append(x.real)
+      new_y8.append(y.real)
+      new_z8.append(z.real)
+    if t == 9:
+      new_x9.append(x.real)
+      new_y9.append(y.real)
+      new_z9.append(z.real)
+      
+#2次元平面上にプロット
+plt.figure(figsize=(10,10))
+plt.scatter(new_x0, new_y0, c="tomato", s=1, label="0")
+plt.scatter(new_x1, new_y1, c="olivedrab", s=1, label="1")
+plt.scatter(new_x2, new_y2, c="cyan", s=1, label="2")
+plt.scatter(new_x3, new_y3, c="steelblue", s=1, label="3")
+plt.scatter(new_x4, new_y4, c="blue", s=1, label="4")
+plt.scatter(new_x5, new_y5, c="magenta", s=1, label="5")
+plt.scatter(new_x6, new_y6, c="silver", s=1, label="6")
+plt.scatter(new_x7, new_y7, c="darkblue", s=1, label="7")
+plt.scatter(new_x8, new_y8, c="purple", s=1, label="8")
+plt.scatter(new_x9, new_y9, c="coral", s=1, label="9")
+plt.legend()
+plt.show()
+
+#3次元上にプロット
+from mpl_toolkits.mplot3d import Axes3D
+fig = plt.figure(figsize = (10, 10))
+ax = fig.add_subplot(111, projection='3d')
+ax.set_title("", size = 20)
+ax.set_xlabel("First Primary Component", size = 14, color = "black")
+ax.set_ylabel("Second Primary Component", size = 14, color = "black")
+ax.set_zlabel("Third Primary Component", size = 14, color = "black")
+ax.scatter(new_x0, new_y0, new_z0, c="tomato", s=1)
+ax.scatter(new_x1, new_y1, new_z1, c="olivedrab", s=1)
+ax.scatter(new_x2, new_y2, new_z2, c="cyan", s=1)
+ax.scatter(new_x3, new_y3, new_z3, c="steelblue", s=1)
+ax.scatter(new_x4, new_y4, new_z4, c="blue", s=1)
+ax.scatter(new_x5, new_y5, new_z5, c="magenta", s=1)
+ax.scatter(new_x6, new_y6, new_z6, c="silver", s=1)
+ax.scatter(new_x7, new_y7, new_z7, c="darkblue", s=1)
+ax.scatter(new_x8, new_y8, new_z8, c="purple", s=1)
+ax.scatter(new_x9, new_y9, new_z9, c="coral", s=1)
+
+plt.show()
