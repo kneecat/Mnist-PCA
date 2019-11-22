@@ -135,5 +135,4 @@ ax.scatter(new_x6, new_y6, new_z6, c="silver", s=1)
 ax.scatter(new_x7, new_y7, new_z7, c="darkblue", s=1)
 ax.scatter(new_x8, new_y8, new_z8, c="purple", s=1)
 ax.scatter(new_x9, new_y9, new_z9, c="coral", s=1)
-
 plt.show()
